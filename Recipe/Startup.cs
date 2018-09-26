@@ -41,6 +41,6 @@ namespace RecipeBox
     }
     public static class DBConfiguration
     {
-        public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=recipe;";
+        public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=recipe_box;";
     }
 }
