@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+<h1>Add a new recipe</h1>
+<form action="/recipes/" method="post">
+  <label for="recipe-name">Recipe Name:</label>
+  <input id="recipe-name" name="recipe-name" type="text">
+  <br>
+  <hr>
+  <br>
+  <label for="recipe-instruction">Recipe Instructions:</label>
+  <input id="recipe-instruction" name="recipe-instruction" type="text">
+  <button type="submit">Add new recipe</button>
+</form>
+
+<p><a href="/recipes">View all recipes</a></p>
+</div>
