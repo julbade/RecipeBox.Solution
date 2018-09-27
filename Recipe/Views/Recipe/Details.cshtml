@@ -26,10 +26,10 @@
       <option value='@category.GetId()'>@category.GetName()</option>
     }
   </select>
-  <button type='submit'>Add</button>
+  <button type='submit'>Add:</button>
 </form>
 
-<p><a href="/recipes/">Return to Recipe List</a></p>
-<p><a href="/recipes/@Model["selectedRecipe"].GetId()/update">Edit Recipe</a></p>
-<p><a href="/recipes/@Model["selectedRecipe"].GetId()/delete">Delete Recipe</a></p>
+<p><a href="/recipes/" class="btn btn-primary">Return to Recipe List</a></p>
+<p><a href="/recipes/@Model["selectedRecipe"].GetId()/update" class="btn btn-primary">Edit Recipe</a></p>
+<p><a href="/recipes/@Model["selectedRecipe"].GetId()/delete" class="btn btn-primary">Delete Recipe</a></p>
 <p><a href="/">Return to Main Page</a></p>

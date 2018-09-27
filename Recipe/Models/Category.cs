@@ -246,7 +246,7 @@ namespace RecipeBox.Models
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"SELECT recipe.* FROM category
-      JOIN category_recipe ON (category.id = category_recipe.categoryid)
+      JOIN category_recipe ON (category.id = category_recipe.category_id)
       JOIN recipe ON (category_recipe.recipe_id = recipe.id)
       WHERE category.id = @CategoryId;";
 
@@ -256,7 +256,7 @@ namespace RecipeBox.Models
       cmd.Parameters.Add(categorydParameter);
 
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-      List<Recipe> recipe = new List<Recipe>{};
+      List<Recipe> Recipe = new List<Recipe>{};
 
       while(rdr.Read())
       {
@@ -266,14 +266,14 @@ namespace RecipeBox.Models
 
 
         Recipe newRecipe = new Recipe(recipeName, recipeInstructions, recipeId);
-        recipe.Add(newRecipe);
+        Recipe.Add(newRecipe);
       }
       conn.Close();
       if (conn != null)
       {
         conn.Dispose();
       }
-      return recipe;
+      return Recipe;
     }
   }
 }

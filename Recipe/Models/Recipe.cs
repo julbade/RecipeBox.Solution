@@ -259,8 +259,8 @@ namespace RecipeBox.Models
         {
           int thisCategoryId = categoryQueryRdr.GetInt32(0);
           string categoryName = categoryQueryRdr.GetString(1);
-          string categoryNumber = categoryQueryRdr.GetString(2);
-          Category foundCategory = new Category(categoryName, categoryNumber, thisCategoryId);
+          string categoryTag = categoryQueryRdr.GetString(2);
+          Category foundCategory = new Category(categoryName, categoryTag, thisCategoryId);
           category.Add(foundCategory);
         }
         categoryQueryRdr.Dispose();

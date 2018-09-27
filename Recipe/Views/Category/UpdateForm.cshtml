@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+<h1>Categories</h1>
+<hr />
+<h2>Edit: @Model.GetName()</h2>
+<form action="/categories/@Model.GetId()/update" method="post">
+  <label for="new-category-name">Name:</label>
+  <input id="new-category-name" type="text" name="new-category-name" value="@Model.GetName()">
+  <label for="new-category-tag"Food Type:</label>
+  <input id="new-category-tag" type="text" name="new-category-tag" value="@Model.GetName()">
+  <button type="submit">Update</button>
+</form>
+
+</div>

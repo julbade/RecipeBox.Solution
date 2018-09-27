@@ -1,0 +1,20 @@
+@{
+  Layout = "_Layout";
+}
+<div class="container">
+<h1>Categories</h1>
+<hr />
+<h2>Here are the Categories:</h2>
+@if (@Model.Count != 0)
+{
+  <ol>
+    @foreach (var category in @Model)
+    {
+      <li><a href="/categories/@category.GetId()">@category.GetName() | @category.GetTag()</a> <br> <a href="/categories/@category.GetId()/update">Edit</a> | <a href="/categories/@category.GetId()/delete">Delete</a> </li>
+    }
+  </ol>
+}
+<h4><a href="/categories/new" class="btn btn-warning">Add a new category</a></h4>
+<h4><a href="/recipes" class="btn btn-warning">Back To Recipe</a></h4>
+
+</div>
