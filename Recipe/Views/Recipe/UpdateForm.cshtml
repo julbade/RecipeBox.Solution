@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+<h1>Recipes</h1>
+<hr />
+<h2>Edit: @Model.GetName()</h2>
+<form action="/recipes/@Model.GetId()/update" method="post">
+  <label for="new-name">Name:</label>
+  <input id="new-name" type="text" name="new-name" value="@Model.GetName()">
+  <label for="new-instruction">New Instructions:</label>
+  <input id="new-instruction" type="text" name="new-instruction" value="@Model.GetInstruction()">
+  <button type="submit">Update</button>
+</form>
+
+</div>

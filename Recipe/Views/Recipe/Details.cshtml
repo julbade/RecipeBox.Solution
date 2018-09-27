@@ -2,8 +2,13 @@
 @{
   Layout = "_Layout";
 }
+
+<div class="container">
+<hr>
 <h1>Recipes</h1>
+<hr>
 <h3>Recipe: @Model["selectedRecipe"].GetName()</h3>
+<hr>
 <h3>Instructions: @Model["selectedRecipe"].GetInstruction()</h3>
 
 <hr />
@@ -17,8 +22,9 @@
     }
   </ul>
 }
+<hr>
 <h4>Add a category to this recipe:</h4>
-<form action='/recipes/@Model["selectedRecipe"].GetId()/category/new' method='post'>
+<form action='/recipes/@Model["selectedRecipe"].GetId()/categories/new' method='post'>
   <label for='category-id'>Select a category</label>
   <select id='category-id' name='category-id' type='text'>
     @foreach (var category in @Model["allCategory"])
@@ -28,8 +34,8 @@
   </select>
   <button type='submit'>Add:</button>
 </form>
+<hr>
+<br>
 
 <p><a href="/recipes/" class="btn btn-primary">Return to Recipe List</a></p>
 <p><a href="/recipes/@Model["selectedRecipe"].GetId()/update" class="btn btn-primary">Edit Recipe</a></p>
-<p><a href="/recipes/@Model["selectedRecipe"].GetId()/delete" class="btn btn-primary">Delete Recipe</a></p>
-<p><a href="/">Return to Main Page</a></p>
