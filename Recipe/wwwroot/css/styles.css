@@ -1,7 +1,7 @@
 .navbar {
     overflow: hidden;
     background-color: gray;
-    font-family: 'Autour One';
+    font-family: 'Bungee Shade';font-size: 22px;
     font-size: 20px
 }
 
@@ -17,8 +17,13 @@
 .navbar a:hover {
     background-color: skyblue;
 }
+
 body {
   background: white;
   color: skyblue;
-  font-family: 'Bevan'
+
+ }
+
+p {
+  font-family: 'Autour One';font-size: 22px;
 }

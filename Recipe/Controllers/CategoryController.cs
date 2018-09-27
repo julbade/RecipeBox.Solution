@@ -17,13 +17,14 @@ public class CategoryController : Controller
   [HttpGet("/categories/new")]
   public ActionResult CreateForm()
   {
+
     return View();
   }
 
   [HttpPost("/categories")]
   public ActionResult Create()
   {
-    Category newCategory = new Category(Request.Form["category-name"], Request.Form["category-tag"]);
+    Category newCategory = new Category(Request.Form["category-name"]);
     newCategory.Save();
     return RedirectToAction("Index");
   }
@@ -67,7 +68,7 @@ public class CategoryController : Controller
   public ActionResult Update(int categoryId)
   {
     Category thisCategory = Category.Find(categoryId);
-    thisCategory.Edit(Request.Form["new-category-name"], Request.Form["new-category-tag"]);
+    thisCategory.Edit(Request.Form["new-category-name"]);
     return RedirectToAction("Index");
   }
 

@@ -13,6 +13,7 @@
     {
       <li><a href='/recipes/@recipe.GetId()'>@recipe.GetName()</a> <br>  <a href="/recipes/@recipe.GetId()/update">Edit</a> | <a method="post" href="/recipes/@recipe.GetId()/delete">Delete</a> </li>
       <p>Recipe instruction: @recipe.GetInstruction()</p>
+      <p> Recipe Rate: @recipe.GetRate()</p>
     }
   </ol>
 }

@@ -10,8 +10,9 @@
 <h3>Recipe: @Model["selectedRecipe"].GetName()</h3>
 <hr>
 <h3>Instructions: @Model["selectedRecipe"].GetInstruction()</h3>
+<hr>
+<h3>Rating: @Model["selectedRecipe"].GetRate()</h3>
 
-<hr />
 @if (@Model["recipeCategory"].Count != 0)
 {
   <h4>This recipe has these category:</h4>
@@ -39,3 +40,4 @@
 
 <p><a href="/recipes/" class="btn btn-primary">Return to Recipe List</a></p>
 <p><a href="/recipes/@Model["selectedRecipe"].GetId()/update" class="btn btn-primary">Edit Recipe</a></p>
+</div>

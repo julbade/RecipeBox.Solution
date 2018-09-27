@@ -33,7 +33,7 @@ namespace RecipeBox.Controllers
         [HttpPost("/recipes")]
         public ActionResult Create()
         {
-            Recipe newRecipe = new Recipe(Request.Form["recipe-name"], Request.Form["recipe-instruction"]);
+            Recipe newRecipe = new Recipe(Request.Form["recipe-name"], Request.Form["recipe-instruction"], int.Parse(Request.Form["recipe-rate"]));
             newRecipe.Save();
             return RedirectToAction("Index");
         }
@@ -70,7 +70,7 @@ namespace RecipeBox.Controllers
         public ActionResult Update(int id)
         {
           Recipe thisRecipe = Recipe.Find(id);
-          thisRecipe.Edit(Request.Form["new-name"], Request.Form["new-instruction"]);
+          thisRecipe.Edit(Request.Form["new-name"], Request.Form["new-instruction"], int.Parse(Request.Form["new-recipe-rate"]));
           return RedirectToAction("Details", new {id = thisRecipe.GetId()});
         }
 

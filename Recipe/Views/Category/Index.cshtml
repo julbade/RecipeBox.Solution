@@ -10,8 +10,10 @@
   <ol>
     @foreach (var category in @Model)
     {
-      <li><a href="/categories/@category.GetId()">@category.GetName() | @category.GetTag()</a> <br> <a href="/categories/@category.GetId()/update">Edit</a> | <a href="/categories/@category.GetId()/delete">Delete</a> </li>
+      <li><a href="/categories/@category.GetId()">@category.GetName()</a> <br> <a href="/categories/@category.GetId()/update">Edit</a> | <a href="/categories/@category.GetId()/delete">Delete</a> </li>
+      
     }
+
   </ol>
 }
 <h4><a href="/categories/new" class="btn btn-warning">Add a new category</a></h4>

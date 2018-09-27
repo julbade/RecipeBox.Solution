@@ -7,7 +7,7 @@ Layout = "_Layout";
 <hr>
 <h1>Categories</h1>
 <hr>
-<h3>Category: @Model["selectedCategory"].GetName()</h3> <hr> <h3>Food Type: @Model["selectedCategory"].GetTag()</h3>
+<h3>Category: @Model["selectedCategory"].GetName()</h3> 
 <hr />
 @if (@Model["categoryRecipes"].Count != 0)
 {
@@ -20,7 +20,7 @@ Layout = "_Layout";
   </ul>
 }
 <hr>
-<h4>Add a recipe::</h4>
+<h4>Add a recipe:</h4>
 <form action='/categories/@Model["selectedCategory"].GetId()/recipes/new' method='post'>
   <label for='recipe-id'>Select a recipe</label>
   <select id='recipe-id' name='recipe-id' type='text'>
@@ -31,9 +31,10 @@ Layout = "_Layout";
   </select>
   <button type='submit'>Add</button>
 </form>
-</div>
+
 
 <hr>
 <br>
 <p><a href="/categories/" class="btn btn-warning">Return to Category List</a></p>
 <p><a href="/categories/@Model["selectedCategory"].GetId()/update" class="btn btn-warning">Edit Category</a></p>
+</div>

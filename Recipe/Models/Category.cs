@@ -8,12 +8,12 @@ namespace RecipeBox.Models
   {
     private string _name;
     private int _id;
-    private string _tag;
-    public Category(string name, string tag, int id = 0)
+
+    public Category(string name, int id = 0)
     {
       _name = name;
       _id = id;
-      _tag = tag;
+
     }
     public override bool Equals(System.Object otherCategory)
     {
@@ -39,27 +39,18 @@ namespace RecipeBox.Models
     {
       return _id;
     }
-    public string GetTag()
-    {
-      return _tag;
-    }
     public void Save()
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO category (name, tag) VALUES (@name, @tag);";
+      cmd.CommandText = @"INSERT INTO category (name) VALUES (@name);";
 
       MySqlParameter newName = new MySqlParameter();
       newName.ParameterName = "@name";
       newName.Value = this.GetName();
       cmd.Parameters.Add(newName);
-
-      MySqlParameter newTag = new MySqlParameter();
-      newTag.ParameterName = "@tag";
-      newTag.Value = this.GetTag();
-      cmd.Parameters.Add(newTag);
 
       cmd.ExecuteNonQuery();
       _id = (int) cmd.LastInsertedId;
@@ -82,8 +73,7 @@ namespace RecipeBox.Models
       {
         int CategoryId = rdr.GetInt32(0);
         string CategoryName = rdr.GetString(1);
-        string CategoryTag = rdr.GetString(2);
-        Category newCategory = new Category(CategoryName, CategoryTag, CategoryId);
+        Category newCategory = new Category(CategoryName, CategoryId);
         allCategorys.Add(newCategory);
       }
       conn.Close();
@@ -108,15 +98,15 @@ namespace RecipeBox.Models
       var rdr = cmd.ExecuteReader() as MySqlDataReader;
       int CategoryId = 0;
       string CategoryName = "";
-      string CategoryTag = "";
+
 
       while(rdr.Read())
       {
         CategoryId = rdr.GetInt32(0);
         CategoryName = rdr.GetString(1);
-        CategoryTag = rdr.GetString(2);
+
       }
-      Category newCategory = new Category(CategoryName, CategoryTag, CategoryId);
+      Category newCategory = new Category(CategoryName, CategoryId);
       conn.Close();
       if (conn != null)
       {
@@ -156,12 +146,12 @@ namespace RecipeBox.Models
       }
     }
 
-    public void Edit(string newName, string newTag)
+    public void Edit(string newName)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE category SET name = @newName, tag = @newTag WHERE id = @searchId;";
+      cmd.CommandText = @"UPDATE category SET name = @newName WHERE id = @searchId;";
 
       MySqlParameter searchId = new MySqlParameter();
       searchId.ParameterName = "@searchId";
@@ -173,14 +163,10 @@ namespace RecipeBox.Models
       name.Value = newName;
       cmd.Parameters.Add(name);
 
-      MySqlParameter tag = new MySqlParameter();
-      tag.ParameterName = "@newTag";
-      tag.Value = newTag;
-      cmd.Parameters.Add(tag);
 
       cmd.ExecuteNonQuery();
       _name = newName;
-      _tag =newTag;
+      
 
       conn.Close();
 
@@ -263,9 +249,10 @@ namespace RecipeBox.Models
         int recipeId = rdr.GetInt32(0);
         string recipeName = rdr.GetString(1);
         string recipeInstructions = rdr.GetString(2);
+        int recipeRate = rdr.GetInt32(3);
 
 
-        Recipe newRecipe = new Recipe(recipeName, recipeInstructions, recipeId);
+        Recipe newRecipe = new Recipe(recipeName, recipeInstructions, recipeRate, recipeId);
         Recipe.Add(newRecipe);
       }
       conn.Close();

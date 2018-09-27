@@ -8,13 +8,16 @@ namespace RecipeBox.Models
   {
     private string _name;
     private string _instruction;
+    private int _rate;
     private int _id;
 
-    public Recipe(string name, string instruction, int id = 0)
+
+    public Recipe(string name, string instruction, int rate, int id = 0)
     {
       _name = name;
       _id = id;
       _instruction = instruction;
+      _rate = rate;
     }
 
     public override bool Equals(System.Object otherRecipe)
@@ -50,6 +53,10 @@ namespace RecipeBox.Models
     {
       return _instruction;
     }
+    public int GetRate()
+    {
+      return _rate;
+    }
 
     public void Save()
     {
@@ -57,7 +64,7 @@ namespace RecipeBox.Models
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO recipe (name, instruction) VALUES (@name, @instruction);";
+      cmd.CommandText = @"INSERT INTO recipe (name, instruction, rate) VALUES (@name, @instruction, @rate);";
 
       MySqlParameter name = new MySqlParameter();
       name.ParameterName = "@name";
@@ -68,6 +75,12 @@ namespace RecipeBox.Models
       instruction.ParameterName = "@instruction";
       instruction.Value = this._instruction;
       cmd.Parameters.Add(instruction);
+
+      MySqlParameter newRate = new MySqlParameter();
+      newRate.ParameterName = "@rate";
+      newRate.Value = this.GetRate();
+      cmd.Parameters.Add(newRate);
+
 
       cmd.ExecuteNonQuery();
       _id = (int) cmd.LastInsertedId;
@@ -91,8 +104,9 @@ namespace RecipeBox.Models
         int recipeId = rdr.GetInt32(0);
         string recipeName = rdr.GetString(1);
         string recipeInstructions = rdr.GetString(2);
+        int recipeRate = rdr.GetInt32(3);
 
-        Recipe newRecipe = new Recipe(recipeName, recipeInstructions, recipeId);
+        Recipe newRecipe = new Recipe(recipeName, recipeInstructions, recipeRate, recipeId);
         allRecipes.Add(newRecipe);
       }
       conn.Close();
@@ -119,13 +133,15 @@ namespace RecipeBox.Models
       int recipeId = 0;
       string recipeName = "";
       string recipeInstructions = "";
+      int recipeRate = 0;
 
       rdr.Read();
       recipeId = rdr.GetInt32(0);
       recipeName = rdr.GetString(1);
       recipeInstructions = rdr.GetString(2);
+      recipeRate = rdr.GetInt32(3);
 
-      Recipe newRecipe = new Recipe(recipeName, recipeInstructions, recipeId);
+      Recipe newRecipe = new Recipe(recipeName, recipeInstructions, recipeRate, recipeId);
       conn.Close();
       if (conn != null)
       {
@@ -259,8 +275,8 @@ namespace RecipeBox.Models
         {
           int thisCategoryId = categoryQueryRdr.GetInt32(0);
           string categoryName = categoryQueryRdr.GetString(1);
-          string categoryTag = categoryQueryRdr.GetString(2);
-          Category foundCategory = new Category(categoryName, categoryTag, thisCategoryId);
+
+          Category foundCategory = new Category(categoryName, thisCategoryId);
           category.Add(foundCategory);
         }
         categoryQueryRdr.Dispose();
@@ -272,12 +288,12 @@ namespace RecipeBox.Models
       }
       return category;
     }
-    public void Edit(string newName, string newInstructions)
+    public void Edit(string newName, string newInstructions,  int newRate)
    {
      MySqlConnection conn = DB.Connection();
      conn.Open();
      var cmd = conn.CreateCommand() as MySqlCommand;
-     cmd.CommandText = @"UPDATE recipe SET name = @newName, instruction = @newInstructions WHERE id = @searchId;";
+     cmd.CommandText = @"UPDATE recipe SET name = @newName, instruction = @newInstructions, rate = @newRate WHERE id = @searchId;";
 
      MySqlParameter searchId = new MySqlParameter();
      searchId.ParameterName = "@searchId";
@@ -294,9 +310,16 @@ namespace RecipeBox.Models
      instruction.Value = newInstructions;
      cmd.Parameters.Add(instruction);
 
+     MySqlParameter rate = new MySqlParameter();
+     rate.ParameterName = "@newRate";
+     rate.Value = newRate;
+     cmd.Parameters.Add(rate);
+
+
      cmd.ExecuteNonQuery();
      _name = newName;
      _instruction = newInstructions;
+     _rate = newRate;
 
      conn.Close();
      if (conn != null)
